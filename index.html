@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Școala de Lumânăreală — Curs Lumânări Artizanale</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* PALETA ORIGINALĂ */
+            --color-bg: #F8F5F0;
+            --color-bg-white: #FFFFFF;
+            --color-bg-alt: #E8DED1;
+
+            --color-text: #4A3728;
+            --color-text-secondary: #6B5E4E;
+            --color-text-muted: #8A7E72;
+            --color-text-light: #A09080;
+
+            --color-border: #D4C8BA;
+            --color-border-light: #E8E0D8;
+
+            --color-accent: #B87333;
+            --color-accent-light: #A66A43;
+
+            /* INTEGRAREA EUCALIPT */
+            --color-bg-eucalipt: #E9EFEA;
+            --color-eucalipt: #4A6352;
+            --color-eucalipt-light: #7A9180;
+
+            --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 1.15; }
+
+        em { font-style: italic; color: var(--color-eucalipt); }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+        .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+
+        .label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-eucalipt);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .divider { width: 100%; height: 1px; background: var(--color-border); }
+        .divider-accent { width: 48px; height: 1px; background: var(--color-accent-light); margin: 28px auto; }
+        .divider-accent-sm { width: 32px; height: 1px; background: var(--color-eucalipt); margin: 0 auto 24px; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border: 1px solid var(--color-text);
+            background: transparent;
+            color: var(--color-text);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .btn:hover { background: var(--color-text); color: var(--color-bg-white); }
+        .btn-filled { background: var(--color-text); color: var(--color-bg-white); border: none; }
+        .btn-filled:hover { background: var(--color-accent); color: var(--color-bg-white); }
+
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.35;
+            filter: saturate(0.7);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, var(--color-bg) 0%, transparent 40%, transparent 60%, var(--color-bg) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 80px 32px;
+        }
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 64px);
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 17px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .section { padding: 80px 0; }
+        .section-white { background: var(--color-bg-white); padding: 80px 0; }
+        .section-alt { background: var(--color-bg-alt); padding: 80px 0; }
+        .section-eucalipt { background: var(--color-bg-eucalipt); padding: 80px 0; }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .two-col h2 {
+            font-size: clamp(26px, 3.5vw, 32px);
+            margin-bottom: 20px;
+        }
+        .two-col p {
+            font-size: 15px;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+        .tag {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--color-eucalipt);
+            border: 1px solid var(--color-eucalipt-light);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .checklist { display: flex; flex-direction: column; gap: 16px; }
+        .checklist-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--color-text-secondary);
+        }
+        .checklist-item span { font-size: 18px; color: var(--color-eucalipt); flex-shrink: 0; font-weight: bold;}
+
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .three-col-center { text-align: center; padding: 20px 12px; }
+        .three-col-center .icon { font-size: 24px; margin-bottom: 8px; color: var(--color-eucalipt); }
+        .three-col-center p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+
+        .img-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .img-grid-4 .img-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .img-grid-4 .img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .img-grid-4 .img-item:hover img { transform: scale(1.05); }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 48px;
+            margin-bottom: 40px;
+        }
+        .module-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        .module-item .num {
+            font-size: 12px;
+            color: var(--color-eucalipt);
+            font-family: var(--font-sans);
+            min-width: 20px;
+            font-weight: 600;
+        }
+        .module-item span { font-size: 14px; color: var(--color-text-secondary); }
+
+        .info-box {
+            background: var(--color-bg-eucalipt);
+            padding: 32px;
+            margin-bottom: 32px;
+            border-left: 3px solid var(--color-eucalipt);
+        }
+        .info-box-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 32px; }
+        .info-box-item h4 {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--color-text);
+        }
+        .info-box-item p { font-size: 13px; color: var(--color-text-muted); }
+
+        .bullet-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
+        .bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+        .bullet-item::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--color-eucalipt);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .bullet-item.full { grid-column: 1 / -1; }
+
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            border: 1px solid var(--color-border);
+        }
+        .pricing-card {
+            padding: 36px 24px;
+            text-align: center;
+            border-right: 1px solid var(--color-border-light);
+            background: var(--color-bg-white);
+            transition: background 0.2s ease;
+        }
+        .pricing-card:last-child { border-right: none; }
+        .pricing-card:hover { background: var(--color-bg); }
+        .pricing-card.highlight {
+            background: var(--color-bg);
+            position: relative;
+        }
+        .pricing-card.highlight::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--color-eucalipt);
+        }
+        .pricing-card .badge {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-eucalipt);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .pricing-card .name {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-text);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .pricing-card .desc {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            margin-bottom: 24px;
+        }
+        .pricing-card .price {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .pricing-card .currency {
+            font-size: 13px;
+            color: var(--color-text-light);
+            margin-bottom: 4px;
+        }
+        .pricing-card .old-price {
+            font-size: 13px;
+            color: var(--color-text-light);
+            text-decoration: line-through;
+            margin-bottom: 28px;
+        }
+        .pricing-card ul {
+            margin: 0 0 28px;
+            padding: 0;
+            list-style: none;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.9;
+            text-align: left;
+        }
+        .pricing-card ul li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pricing-card ul li::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--color-eucalipt);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .pricing-card .btn {
+            padding: 10px 28px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--color-border-light);
+            padding: 20px 0;
+            cursor: pointer;
+        }
+        .faq-item:last-child { border-bottom: 1px solid var(--color-border-light); }
+        .faq-item summary {
+            font-size: 15px;
+            font-weight: 500;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-sans);
+        }
+        .faq-item summary::after {
+            content: '+';
+            font-size: 20px;
+            color: var(--color-eucalipt);
+            font-weight: 300;
+        }
+        .faq-item[open] summary::after { content: '−'; }
+        .faq-item p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 12px 0 0;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .container, .container-narrow { padding: 0 20px; }
+            .two-col { grid-template-columns: 1fr; gap: 32px; }
+            .three-col { grid-template-columns: 1fr; }
+            .module-grid { grid-template-columns: 1fr; }
+            .bullet-list { grid-template-columns: 1fr; }
+            .pricing-table { grid-template-columns: 1fr; }
+            .pricing-card { border-right: none; border-bottom: 1px solid var(--color-border-light); }
+            .img-grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .info-box-grid { grid-template-columns: 1fr; }
+            .section, .section-white, .section-alt, .section-eucalipt { padding: 56px 0; }
+            .hero { min-height: 70vh; }
+        }
+
+        .eucalyptus-deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.16;
+            filter: blur(3px) saturate(0.8);
+            transition: opacity 0.6s ease;
+        }
+        .eucalyptus-deco img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .euc-hero-tr { top: -30px; right: -50px; width: 300px; height: 220px; transform: rotate(-15deg); }
+        .euc-hero-bl { bottom: -20px; left: -40px; width: 260px; height: 190px; transform: rotate(20deg); }
+        .euc-section-tr { top: 20px; right: -30px; width: 250px; height: 180px; transform: rotate(-10deg); }
+        .euc-pricing { top: -10px; left: 50%; transform: translateX(-50%) rotate(5deg); width: 280px; height: 120px; opacity: 0.12; }
+        .euc-footer { bottom: -10px; right: -20px; width: 240px; height: 170px; transform: rotate(-15deg); opacity: 0.14; }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="eucalyptus-deco euc-hero-tr"><img src="euc1.png" alt="" loading="lazy"></div>
+    <div class="eucalyptus-deco euc-hero-bl"><img src="euc2.png" alt="" loading="lazy"></div>
+    <div class="hero-bg">
+        <img src="img1.jpeg" alt="Lumânare artistică fundal" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <!-- LOGO CENTRAL -->
+        <div style="margin-bottom: 32px;">
+            <img src="logo.jpeg" alt="Școala de Lumânăreală - Te învățăm să transformi ceara în lumină" style="max-width: 480px; width: 100%; height: auto; margin: 0 auto; display: block;">
+        </div>
+
+        <div class="label" style="margin-bottom: 24px;">Curs lansare 2026</div>
+
+        <p>
+            Învață să creezi lumânări artizanale și transformă această pasiune într-o sursă de venit. Fie că îți dorești un venit suplimentar, începutul propriei afaceri, un hobby creativ, sau chiar economii pentru casă și familie — toată informația într-un singur loc.
+        </p>
+
+        <div style="margin-top: 40px;">
+            <a href="#pricing" class="btn">Înscrie-te acum</a>
+        </div>
+    </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- PIAȚA -->
+<section class="section">
+    <div class="container">
+        <div class="two-col">
+            <div>
+                <div class="label">Piața</div>
+                <h2>Mai populare ca<br><em>niciodată</em></h2>
+                <p style="margin-top:16px;">
+                    Astăzi, lumânările artizanale sunt printre cele mai căutate produse handmade. Sunt cumpărate pentru cadouri, nunți, botezuri, decor și wellness.
+                </p>
+                <div class="tags" style="margin-top:20px;">
+                    <span class="tag">cadouri</span>
+                    <span class="tag">nunți</span>
+                    <span class="tag">decor</span>
+                    <span class="tag">spa</span>
+                </div>
+            </div>
+            <div>
+                <div style="position:relative;">
+                    <div style="border-radius:4px;overflow:hidden;aspect-ratio:4/3;">
+                        <img src="img2.jpeg" alt="Lumânare cadou împachetată" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div style="position:absolute;bottom:-20px;left:-20px;width:45%;border-radius:4px;overflow:hidden;aspect-ratio:1;border:4px solid var(--color-bg);box-shadow:0 8px 32px rgba(0,0,0,0.08);">
+                        <img src="img3.jpeg" alt="Lumânare decor brăduți" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- IMAGINEAZA-TI -->
+<section class="section-eucalipt" style="position:relative;overflow:hidden;">
+    <div class="eucalyptus-deco euc-section-tr"><img src="euc3.png" alt="" loading="lazy"></div>
+    <div class="container">
+        <div class="two-col" style="direction:rtl;">
+            <div style="direction:ltr;">
+                <div style="border-radius:4px;overflow:hidden;aspect-ratio:3/4;">
+                    <img src="img4.jpeg" alt="Detaliu lumânare" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+            <div style="direction:ltr;">
+                <div class="label">Viziune</div>
+                <h2 style="font-size:28px;">Imaginează-ți <em>că...</em></h2>
+                <p style="margin-top:20px;margin-bottom:16px;">
+                    În loc să cumperi cadouri, le creezi chiar tu. În loc să plătești pentru decorațiuni, îți realizezi propriile colecții.
+                </p>
+                <p style="margin-bottom:16px;">
+                    Iar atunci când prinzi încredere, începi să primești primele comenzi. Poate de la o prietenă. Poate de la un coleg. Poate printr-o postare pe Facebook sau Instagram.
+                </p>
+                <div style="width:32px;height:1px;background:var(--color-eucalipt);margin:24px 0;"></div>
+                <p style="font-size:15px;color:var(--color-text-muted);">
+                    Multe afaceri handmade au început exact așa: cu o singură lumânare turnată acasă și cu dorința de a crea ceva frumos.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DE CE -->
+<section class="section">
+    <div class="container">
+        <div class="divider" style="margin-bottom:64px;"></div>
+        <div style="text-align:center;margin-bottom:48px;">
+            <div class="label">Motivație</div>
+            <h2 style="font-size:28px;">De ce aleg tot mai multe <em>persoane</em>?</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px;">
+            <div style="text-align:center;"><div style="font-size:32px;margin-bottom:12px;">🏡</div><div style="font-size:13px;font-weight:500;">Lucrezi de acasă</div></div>
+            <div style="text-align:center;"><div style="font-size:32px;margin-bottom:12px;">🌱</div><div style="font-size:13px;font-weight:500;">Investiție minimă</div></div>
+            <div style="text-align:center;"><div style="font-size:32px;margin-bottom:12px;">📈</div><div style="font-size:13px;font-weight:500;">Cerere uriașă</div></div>
+            <div style="text-align:center;"><div style="font-size:32px;margin-bottom:12px;">✨</div><div style="font-size:13px;font-weight:500;">Fără experiență</div></div>
+        </div>
+
+        <div class="checklist" style="max-width:600px;margin:0 auto;">
+            <div class="checklist-item"><span>✓</span> Poți lucra din confortul propriei case.</div>
+            <div class="checklist-item"><span>✓</span> Îți organizezi programul în funcție de timpul tău.</div>
+            <div class="checklist-item"><span>✓</span> Creezi produse personalizate, apreciate și căutate.</div>
+            <div class="checklist-item"><span>✓</span> Înveți o abilitate pe care o poți dezvolta în ritmul tău.</div>
+            <div class="checklist-item"><span>✓</span> Dacă îți dorești, poți transforma această pasiune într-o afacere.</div>
+        </div>
+    </div>
+</section>
+
+<!-- NU AI NEVOIE -->
+<section class="section-white">
+    <div class="container" style="text-align:center;">
+        <h2 style="font-size:24px;margin-bottom:32px;">Nu ai nevoie de <em>experiență</em></h2>
+        <div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;">
+            <div style="max-width:220px;">
+                <div style="width:32px;height:2px;background:var(--color-eucalipt);margin:0 auto 12px;"></div>
+                <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.7;">Nu ai nevoie de un atelier profesional, poți începe din propria bucătărie.</p>
+            </div>
+            <div style="max-width:220px;">
+                <div style="width:32px;height:2px;background:var(--color-eucalipt);margin:0 auto 12px;"></div>
+                <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.7;">Nu ai nevoie de investiții foarte mari.</p>
+            </div>
+            <div style="max-width:220px;">
+                <div style="width:32px;height:2px;background:var(--color-eucalipt);margin:0 auto 12px;"></div>
+                <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.7;">Ai nevoie de informațiile corecte, de materiale potrivite și de cineva care să îți arate fiecare pas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OPORTUNITATI -->
+<section class="section">
+    <div class="container">
+        <div class="divider" style="margin-bottom:64px;"></div>
+        <div style="text-align:center;margin-bottom:40px;">
+            <div class="label">Oportunități</div>
+            <h2 style="font-size:28px;">Ce poate însemna <em>acest curs</em> pentru tine?</h2>
+        </div>
+        <div class="three-col">
+            <div class="three-col-center"><div class="icon">✨</div><p>Un venit suplimentar.</p></div>
+            <div class="three-col-center"><div class="icon">✨</div><p>Economii pentru evenimente și decorațiuni.</p></div>
+            <div class="three-col-center"><div class="icon">✨</div><p>Un hobby relaxant.</p></div>
+            <div class="three-col-center"><div class="icon">✨</div><p>Cadouri unice, realizate chiar de tine.</p></div>
+            <div class="three-col-center"><div class="icon">✨</div><p>O activitate pe care o poți împărți cu familia.</p></div>
+            <div class="three-col-center"><div class="icon">✨</div><p>Primul pas către propriul tău brand.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ALEGEREA -->
+<section class="section-white">
+    <div class="container">
+        <div class="two-col">
+            <div style="text-align:center;">
+                <div style="border-radius:4px;overflow:hidden;aspect-ratio:1;">
+                    <img src="img5.jpeg" alt="Colecție lumânări suport" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+            <div>
+                <h2 style="font-size:24px;margin-bottom:24px;">O singură abilitate îți poate deschide<br><em>mai multe oportunități</em></h2>
+                <p style="margin-bottom:12px;">După ce înveți să creezi lumânări de calitate, alegerea îți aparține.</p>
+                <p style="margin-bottom:8px;">Poți crea doar pentru tine și cei dragi.</p>
+                <p style="margin-bottom:8px;">Poți realiza lumânări pentru evenimente și cadouri.</p>
+                <p style="margin-bottom:8px;">Poți primi comenzi personalizate.</p>
+                <p>Sau poți construi, pas cu pas, propriul tău brand.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DISCLAIMER -->
+<section class="section-alt" style="text-align:center;">
+    <div class="container-narrow">
+        <div class="divider-accent-sm"></div>
+        <p style="font-size:15px;color:var(--color-text-muted);line-height:1.7;font-style:italic;">
+            Noi nu îți promitem câștiguri peste noapte. Îți oferim cunoștințele și instrumentele necesare pentru a începe. Toate într-un singur loc. Rezultatele vor depinde de implicarea, creativitatea și consecvența ta.
+        </p>
+    </div>
+</section>
+
+<!-- MODUL I -->
+<section class="section-white">
+    <div class="container">
+        <div class="label">Conținut</div>
+        <h2 style="font-size:32px;margin-bottom:12px;">Modulul <em>I</em></h2>
+        <div style="font-size:14px;color:var(--color-text-muted);margin-bottom:40px;">Bazele confecționării lumânărilor</div>
+
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:48px;">
+            <div style="border-radius:4px;overflow:hidden;aspect-ratio:16/9;background:var(--color-border-light);display:flex;align-items:center;justify-content:center;">
+                <img src="img6.jpeg" alt="Scule curs video" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+                <div style="border-radius:4px;overflow:hidden;flex:1;background:var(--color-border-light);display:flex;align-items:center;justify-content:center;">
+                    <img src="img7.jpeg" alt="Suport fitil document" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size:15px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:32px;">
+            În acest modul vei învăța toate informațiile esențiale pentru a începe să creezi lumânări artizanale de calitate. Cele 10 capitole te vor ghida pas cu pas, de la alegerea materialelor până la etichetarea și depozitarea corectă a produselor.
+        </p>
+
+        <div class="module-grid">
+            <div class="module-item"><span class="num">01</span><span>Istoria lumânărilor de la necesitate la artă și afacere</span></div>
+            <div class="module-item"><span class="num">02</span><span>Materialele utilizate și tipurile de lumânări</span></div>
+            <div class="module-item"><span class="num">03</span><span>Matrițe, tipuri de ceară și aditivi. Calculul cantității de ceară</span></div>
+            <div class="module-item"><span class="num">04</span><span>Totul despre fitiluri</span></div>
+            <div class="module-item"><span class="num">05</span><span>Coloranții utilizați în confecționarea lumânărilor</span></div>
+            <div class="module-item"><span class="num">06</span><span>Parfumuri, uleiuri esențiale și fixatori de miros</span></div>
+            <div class="module-item"><span class="num">07</span><span>Tehnici de bază în confecționarea lumânărilor</span></div>
+            <div class="module-item"><span class="num">08</span><span>Organizarea bucătăriei sau a atelierului, măsuri de siguranță și bune practici</span></div>
+            <div class="module-item"><span class="num">09</span><span>Etichetarea și depozitarea corectă a lumânărilor</span></div>
+            <div class="module-item"><span class="num">10</span><span>Întrebări frecvente și recomandări practice</span></div>
+        </div>
+
+        <div class="info-box">
+            <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--color-eucalipt);margin-bottom:16px;">Materiale incluse</div>
+            <div class="info-box-grid">
+                <div class="info-box-item"><h4>10 lecții video HD</h4><p>Fiecare lecție explicată pas cu pas. Acces pe viață.</p></div>
+                <div class="info-box-item"><h4>Suport de curs PDF</h4><p>Toate informațiile organizate într-un ghid consultabil oricând.</p></div>
+                <div class="info-box-item"><h4>Ghid PDF Q&A</h4><p>Cele mai frecvente întrebări de la cursanți, cu soluții rapide.</p></div>
+                <div class="info-box-item"><h4>Minutul de Aur</h4><p>Tips & Tricks de la specialiștii noștri.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WORKBOOK -->
+<section class="section">
+    <div class="container">
+        <div class="divider" style="margin-bottom:64px;"></div>
+        <div class="two-col">
+            <div>
+                <div class="label">Opțional</div>
+                <h2 style="font-size:24px;">Workbook<br><em>Profesional</em></h2>
+                <p style="margin-top:20px;">
+                    Dacă îți dorești să aplici tot ceea ce înveți și să îți organizezi eficient activitatea, poți adăuga la comandă <strong>Workbook-ul Profesional al Creatorului de Lumânări</strong>.
+                </p>
+                <div class="bullet-list" style="margin-top:20px;">
+                    <div class="bullet-item">fișe de lucru pentru fiecare lecție</div>
+                    <div class="bullet-item">exerciții practice</div>
+                    <div class="bullet-item">fișe pentru testarea rețetelor</div>
+                    <div class="bullet-item">tabele pentru calculul costurilor</div>
+                    <div class="bullet-item">planificarea producției</div>
+                    <div class="bullet-item">jurnalul propriilor rețete</div>
+                    <div class="bullet-item full">obiective și plan de dezvoltare</div>
+                </div>
+            </div>
+            <div>
+                <div style="border-radius:4px;overflow:hidden;aspect-ratio:3/4;">
+                    <img src="img8.jpeg" alt="Mockup Workbook deschis" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MODUL II -->
+<section class="section-eucalipt">
+    <div class="container">
+        <div class="label">Avansat</div>
+        <h2 style="font-size:32px;margin-bottom:12px;">Modulul <em>II</em></h2>
+        <div style="font-size:14px;color:var(--color-text-muted);margin-bottom:40px;">De la pasiune la primele vânzări</div>
+
+        <div class="img-grid-4" style="margin-bottom:48px;">
+            <div class="img-item">
+                <img src="img9.jpeg" alt="Rețete lumânări" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="img-item">
+                <img src="img10.jpeg" alt="Ghid afacere lumânări" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="img-item">
+                <img src="img11.jpeg" alt="Ghid prețuri lumânări" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="img-item">
+                <img src="img12.jpeg" alt="Ghid vânzări lumânări" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;margin-bottom:32px;">
+            <div>
+                <h4 style="font-family:var(--font-sans);font-size:15px;font-weight:600;margin-bottom:8px;">Colecție de Rețete exclusive</h4>
+                <p style="font-size:14px;color:var(--color-text-muted);line-height:1.6;">Rețete atent selectate și testate, pe care le poți reproduce cu încredere. Te vor ajuta să exersezi diferite tehnici și să obții rezultate frumoase încă de la primele încercări.</p>
+            </div>
+            <div>
+                <h4 style="font-family:var(--font-sans);font-size:15px;font-weight:600;margin-bottom:8px;">Ghid — Cum să îți începi afacerea cu lumânări</h4>
+                <p style="font-size:14px;color:var(--color-text-muted);line-height:1.6;">Cum să începi chiar și cu un buget redus. Cum îți organizezi bucătăria sau atelierul. De unde achiziționezi materialele.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POVESTE -->
+<section class="section">
+    <div class="container">
+        <div class="divider" style="margin-bottom:64px;"></div>
+        <div class="two-col">
+            <div>
+                <div style="border-radius:4px;overflow:hidden;aspect-ratio:3/4;">
+                    <img src="img13.jpeg" alt="Poveste afacere lumânări" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+            <div>
+                <div class="label">Despre mine</div>
+                <h3 style="font-size:26px;margin-bottom:20px;">"Am început în <em>bucătărie</em>, după program"</h3>
+                <p style="margin-bottom:16px;">
+                    Sunt Monica. Am început să fac lumânări doar pentru mine și prietene. Într-un an aveam destule comenzi încât să mă gândesc serios la propria afacere.
+                </p>
+                <p>
+                    Am strâns tot ce-am învățat — greșelile, trucurile, furnizorii — și le-am pus într-un curs pe care mi l-aș fi dorit la început.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--color-bg);padding:80px 0;position:relative;overflow:hidden;">
+    <div class="eucalyptus-deco euc-pricing"><img src="euc1.png" alt="" loading="lazy"></div>
+    <div class="container">
+        <div style="text-align:center;margin-bottom:56px;">
+            <div class="label">Ofertă de lansare</div>
+            <h2 style="font-size:32px;">Alege <em>pachetul</em> tău</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:48px;max-width:700px;margin-left:auto;margin-right:auto;">
+            <div style="border-radius:4px;overflow:hidden;aspect-ratio:16/10;">
+                <img src="img14.jpeg" alt="Pachet START curs" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="border-radius:4px;overflow:hidden;aspect-ratio:16/10;">
+                <img src="img15.jpeg" alt="Pachet START PLUS curs" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+        </div>
+
+        <div class="pricing-table" style="grid-template-columns: repeat(2, 1fr); max-width: 700px; margin: 0 auto;">
+            <div class="pricing-card">
+                <div class="name">START</div>
+                <div class="desc">Modulul I complet</div>
+                <div class="price">297</div><div class="currency">lei</div>
+                <div class="old-price">397 lei</div>
+                <ul>
+                    <li>10 lecții video HD — acces pe viață</li>
+                    <li>Suport de curs PDF</li>
+                    <li>Ghid PDF — Întrebări și răspunsuri</li>
+                    <li>Minutul de Aur — Tips & Tricks</li>
+                </ul>
+                <a href="#" class="btn">Înscrie-te acum</a>
+            </div>
+
+            <div class="pricing-card highlight">
+                <div class="badge">Cel mai popular</div>
+                <div class="name">START PLUS</div>
+                <div class="desc">Modulul I + Workbook Profesional</div>
+                <div class="price">397</div><div class="currency">lei</div>
+                <div class="old-price">497 lei</div>
+                <ul>
+                    <li>Tot ce conține Pachetul START</li>
+                    <li>Workbook Profesional</li>
+                    <li>Fișe, exerciții, tabele costuri</li>
+                    <li>Jurnal rețete, plan dezvoltare</li>
+                </ul>
+                <a href="#" class="btn btn-filled">Înscrie-te acum</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DACA AMANI -->
+<section class="section-alt" style="text-align:center;">
+    <div class="container-narrow">
+        <div class="divider-accent-sm"></div>
+        <h2 style="font-size:22px;margin-bottom:24px;">Dacă alegi să <em>amâni...</em></h2>
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:480px;margin:0 auto;">
+            <p style="font-size:15px;color:var(--color-text-muted);line-height:1.7;">Probabil vei continua să urmărești tutoriale gratuite, fără să știi care informații sunt corecte.</p>
+            <p style="font-size:15px;color:var(--color-text-muted);line-height:1.7;">Vei cumpăra materiale care poate nu se potrivesc proiectelor tale.</p>
+            <p style="font-size:15px;color:var(--color-text-muted);line-height:1.7;">Vei învăța prin încercări și greșeli, consumând timp și bani.</p>
+        </div>
+    </div>
+</section>
+
+<!-- GARANTIE -->
+<section class="section-alt" style="padding-top:0;padding-bottom:48px;">
+    <div class="container">
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px;">
+            <div style="width:40px;height:1px;background:var(--color-eucalipt);"></div>
+            <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-secondary);">Garanție 14 zile</div>
+            <div style="width:40px;height:1px;background:var(--color-eucalipt);"></div>
+        </div>
+        <p style="font-size:14px;color:var(--color-text-muted);text-align:center;max-width:560px;margin:0 auto;line-height:1.7;">
+            Dacă în primele 14 zile consideri că acest curs nu este potrivit pentru tine, ne contactezi și analizăm solicitarea ta.
+        </p>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-eucalipt">
+    <div class="container-narrow">
+        <div style="text-align:center;margin-bottom:48px;">
+            <div class="label">Informații</div>
+            <h2 style="font-size:28px;">Întrebări <em>frecvente</em></h2>
+        </div>
+
+        <details class="faq-item">
+            <summary>Trebuie experiență anterioară?</summary>
+            <p>Nu. Cursul începe de la zero și te ghidează pas cu pas.</p>
+        </details>
+        <details class="faq-item">
+            <summary>Cât costă materialele de start?</summary>
+            <p>Aproximativ 100–150 lei pentru primele încercări.</p>
+        </details>
+        <details class="faq-item">
+            <summary>Cum primesc accesul după plată?</summary>
+            <p>Imediat după plată primești email cu toate link-urile.</p>
+        </details>
+        <details class="faq-item">
+            <summary>Trebuie firmă pentru a cumpăra?</summary>
+            <p>Nu, cumperi ca persoană fizică.</p>
+        </details>
+    </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section style="padding:80px 32px;text-align:center;position:relative;overflow:hidden;">
+    <div class="eucalyptus-deco euc-footer"><img src="euc2.png" alt="" loading="lazy"></div>
+    <div class="container">
+        <div class="divider-accent"></div>
+        <p style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-light);margin-bottom:8px;">Astăzi începe povestea ta</p>
+        <h2 style="font-size:22px;margin-bottom:28px;">Ești <em>gata</em>?</h2>
+        <a href="#pricing" class="btn">Vreau să încep</a>
+    </div>
+</section>
+
+</body>
+</html>
