@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* PALETA ORIGINALĂ */
             --color-bg: #F8F5F0;
             --color-bg-white: #FFFFFF;
             --color-bg-alt: #E8DED1;
@@ -25,7 +24,6 @@
             --color-accent: #B87333;
             --color-accent-light: #A66A43;
 
-            /* INTEGRAREA EUCALIPT */
             --color-bg-eucalipt: #E9EFEA;
             --color-eucalipt: #4A6352;
             --color-eucalipt-light: #7A9180;
@@ -35,21 +33,23 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; width: 100%; overflow-x: hidden; }
         body {
             font-family: var(--font-sans);
             color: var(--color-text);
             background: var(--color-bg);
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
+            width: 100%;
+            overflow-x: hidden;
         }
         h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 1.15; }
 
         em { font-style: italic; color: var(--color-eucalipt); }
         img { max-width: 100%; height: auto; display: block; }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
-        .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; width: 100%; }
+        .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; width: 100%; }
 
         .label {
             font-family: var(--font-sans);
@@ -78,6 +78,7 @@
             cursor: pointer;
             transition: all 0.25s ease;
             text-decoration: none;
+            text-align: center;
         }
         .btn:hover { background: var(--color-text); color: var(--color-bg-white); }
         .btn-filled { background: var(--color-text); color: var(--color-bg-white); border: none; }
@@ -114,7 +115,8 @@
             position: relative;
             z-index: 2;
             max-width: 600px;
-            padding: 80px 32px;
+            padding: 80px 20px;
+            width: 100%;
         }
         .hero h1 {
             font-size: clamp(40px, 7vw, 64px);
@@ -371,9 +373,10 @@
             line-height: 1.7;
         }
 
+        /* MEDIA QUERIES PENTRU RESPONSIVITATE TOTALĂ PE MOBIL */
         @media (max-width: 768px) {
-            .container, .container-narrow { padding: 0 20px; }
-            .two-col { grid-template-columns: 1fr; gap: 32px; }
+            .container, .container-narrow { padding: 0 16px; }
+            .two-col { grid-template-columns: 1fr; gap: 32px; direction: ltr !important; }
             .three-col { grid-template-columns: 1fr; }
             .module-grid { grid-template-columns: 1fr; }
             .bullet-list { grid-template-columns: 1fr; }
@@ -381,8 +384,9 @@
             .pricing-card { border-right: none; border-bottom: 1px solid var(--color-border-light); }
             .img-grid-4 { grid-template-columns: repeat(2, 1fr); }
             .info-box-grid { grid-template-columns: 1fr; }
-            .section, .section-white, .section-alt, .section-eucalipt { padding: 56px 0; }
+            .section, .section-white, .section-alt, .section-eucalipt { padding: 48px 0; }
             .hero { min-height: 70vh; }
+            .eucalyptus-deco { display: none; } /* Ascundem elementele decorative pe ecrane mici ca să nu blocheze textul */
         }
 
         .eucalyptus-deco {
