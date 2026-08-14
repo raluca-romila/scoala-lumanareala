@@ -1,0 +1,35 @@
+<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+  <defs>
+    <linearGradient id="logoGradient" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#F8A33A" />
+      <stop offset="50%" stop-color="#F2774C" />
+      <stop offset="100%" stop-color="#E95267" />
+    </linearGradient>
+  </defs>
+
+  <!-- Flacăra cu decupajul interior -->
+  <path d="M50 5 
+           C 35 25, 25 45, 27 65 
+           C 29 80, 40 88, 50 88 
+           C 60 88, 71 80, 73 65 
+           C 75 45, 65 25, 50 5 
+           Z 
+           M50 45 
+           C 42 60, 39 70, 42 78 
+           C 44 83, 47 84, 50 84 
+           C 53 84, 56 83, 58 78 
+           C 61 70, 58 60, 50 45 
+           Z" 
+        fill="url(#logoGradient)" fill-rule="evenodd"/>
+
+  <!-- Baza (cartea/suportul) -->
+  <path d="M 20 78 
+           C 35 78, 45 85, 50 92 
+           C 55 85, 65 78, 80 78 
+           C 85 78, 85 83, 80 83 
+           C 65 83, 55 90, 50 98 
+           C 45 90, 35 83, 20 83 
+           C 15 83, 15 78, 20 78 
+           Z" 
+        fill="url(#logoGradient)"/>
+</svg>
