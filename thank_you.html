@@ -7,8 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Libraria de confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --color-bg: #F8F5F0;
@@ -26,12 +24,12 @@
         body {
             font-family: var(--font-sans);
             color: var(--color-eucalipt);
-            background: var(--color-bg);
+            background: #111;
             line-height: 1.65;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
             min-height: 100vh;
+            padding: 40px 20px;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
@@ -42,51 +40,14 @@
 
         .thank-card {
             max-width: 600px;
-            margin: 20px;
+            width: 100%;
+            margin: auto;
             padding: 80px 40px 60px;
             background: var(--color-bg-white);
             border-radius: 4px;
-            box-shadow: 0 15px 50px rgba(74, 99, 82, 0.1);
             text-align: center;
-            width: 100%;
-            animation: fadeInSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(20px);
-            position: relative;
-            overflow: hidden; /* Taie trandafirii la marginea cardului */
-        }
-
-        @keyframes fadeInSlide {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- STILURI TRANDAFIRI --- */
-        .corner-rose {
-            position: absolute;
-            width: 220px; /* Ajustează dimensiunea florilor de aici */
-            height: auto;
-            z-index: 1;
-            opacity: 0;
-            animation: revealRoses 1.2s ease-out 0.5s forwards;
-        }
-
-        @keyframes revealRoses {
-            to { opacity: 1; }
-        }
-
-        /* Poziționarea și rotirea imaginii pentru fiecare colț */
-        .tl { top: 0; left: 0; }
-        .tr { top: 0; right: 0; transform: scaleX(-1); }
-        .bl { bottom: 0; left: 0; transform: scaleY(-1); }
-        .br { bottom: 0; right: 0; transform: scale(-1, -1); }
-
-        /* --- CONȚINUT CARD --- */
-        .content-wrapper {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
         }
 
         .btn-home {
@@ -107,70 +68,45 @@
         .btn-home:hover {
             background: var(--color-accent);
         }
+
+        .burn-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 100;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
     </style>
 </head>
 <body>
 
+<video class="burn-overlay" autoplay muted playsinline>
+    <source src="burning-page.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 <div class="thank-card">
-
-    <!-- Cele 4 colțuri cu imaginea ta reală -->
-    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose tl" alt="Decor floral">
-    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose tr" alt="Decor floral">
-    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose bl" alt="Decor floral">
-    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose br" alt="Decor floral">
-
-    <!-- Conținutul -->
-    <div class="content-wrapper">
-        <div style="margin-bottom: 24px;">
-            <!-- Flacăra Monicăi este la locul ei -->
-            <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto; margin: 0 auto 12px; display: block;">
-            <h1 style="font-size: 32px; margin-bottom: 8px;">Înscriere <em>înregistrată!</em></h1>
-        </div>
-
-        <p style="font-size: 15px; margin-bottom: 24px; line-height: 1.7;">
-            Îți mulțumim pentru interes! Datele tale au fost trimise cu succes către echipa noastră.
-        </p>
-
-        <div style="background: var(--color-bg); padding: 16px; border-radius: 4px; margin-bottom: 24px;">
-            <p style="font-size: 14px; opacity: 0.9;">
-                Monica te va contacta în cel mai scurt timp pe <strong>WhatsApp</strong> pentru a stabili detaliile de plată și livrare a cursului.
-            </p>
-        </div>
-
-        <a href="index.html" class="btn-home">Înapoi la pagina principală</a>
+    <div style="margin-bottom: 24px;">
+        <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto; margin: 0 auto 12px; display: block;">
+        <h1 style="font-size: 32px; margin-bottom: 8px;">Înscriere <em>înregistrată!</em></h1>
     </div>
+
+    <p style="font-size: 15px; margin-bottom: 24px; line-height: 1.7;">
+        Îți mulțumim pentru interes! Datele tale au fost trimise cu succes către echipa noastră.
+    </p>
+
+    <div style="background: var(--color-bg); padding: 16px; border-radius: 4px; margin-bottom: 24px;">
+        <p style="font-size: 14px; opacity: 0.9;">
+            Monica te va contacta în cel mai scurt timp pe <strong>WhatsApp</strong> pentru a stabili detaliile de plată și livrare a cursului.
+        </p>
+    </div>
+
+    <a href="index.html" class="btn-home">Întoarce-te pe site</a>
 </div>
-
-<script>
-    // Confetti pe roșu și auriu, asortate cu trandafirii
-    window.addEventListener('DOMContentLoaded', () => {
-        const duration = 2 * 1000;
-        const end = Date.now() + duration;
-
-        const colors = ['#A30000', '#D4AF37', '#B87333', '#4A6352'];
-
-        (function frame() {
-            confetti({
-                particleCount: 7,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: colors
-            });
-            confetti({
-                particleCount: 7,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: colors
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        }());
-    });
-</script>
 
 </body>
 </html>
