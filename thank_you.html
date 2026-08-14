@@ -41,25 +41,52 @@
         em { font-style: italic; color: var(--color-accent); font-weight: 500; }
 
         .thank-card {
-            max-width: 540px;
+            max-width: 600px;
             margin: 20px;
-            padding: 60px 40px 50px;
+            padding: 80px 40px 60px;
             background: var(--color-bg-white);
-            border-radius: 8px;
+            border-radius: 4px;
             box-shadow: 0 15px 50px rgba(74, 99, 82, 0.1);
             text-align: center;
             width: 100%;
             animation: fadeInSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
             transform: translateY(20px);
-            position: relative; /* Necesar pentru a poziționa lianele */
+            position: relative;
+            overflow: hidden; /* Taie trandafirii la marginea cardului */
         }
 
         @keyframes fadeInSlide {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- STILURI TRANDAFIRI --- */
+        .corner-rose {
+            position: absolute;
+            width: 220px; /* Ajustează dimensiunea florilor de aici */
+            height: auto;
+            z-index: 1;
+            opacity: 0;
+            animation: revealRoses 1.2s ease-out 0.5s forwards;
+        }
+
+        @keyframes revealRoses {
+            to { opacity: 1; }
+        }
+
+        /* Poziționarea și rotirea imaginii pentru fiecare colț */
+        .tl { top: 0; left: 0; }
+        .tr { top: 0; right: 0; transform: scaleX(-1); }
+        .bl { bottom: 0; left: 0; transform: scaleY(-1); }
+        .br { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+        /* --- CONȚINUT CARD --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
         }
 
         .btn-home {
@@ -75,42 +102,10 @@
             text-decoration: none;
             font-weight: 700;
             transition: background 0.3s ease;
-            position: relative;
-            z-index: 10;
         }
 
         .btn-home:hover {
             background: var(--color-accent);
-        }
-
-        /* --- STILURI PENTRU LIANELE ANIMATE --- */
-        .decoration {
-            position: absolute;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .dec-tl { top: -40px; left: -40px; }
-        .dec-br { bottom: -40px; right: -40px; transform: rotate(180deg); }
-
-        .vine-path {
-            stroke-dasharray: 400;
-            stroke-dashoffset: 400;
-            /* Începe să se deseneze la secunda 2.0 */
-            animation: drawVine 1.5s ease-out 2s forwards;
-        }
-
-        .fade-in-delayed {
-            opacity: 0;
-            /* Frunzele și lumânările apar după ce se desenează liana */
-            animation: revealElements 1.2s ease-out 2.8s forwards;
-        }
-
-        @keyframes drawVine {
-            to { stroke-dashoffset: 0; }
-        }
-        @keyframes revealElements {
-            to { opacity: 1; }
         }
     </style>
 </head>
@@ -118,75 +113,41 @@
 
 <div class="thank-card">
 
-    <!-- Liana Stânga-Sus -->
-    <svg class="decoration dec-tl" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Rădăcinile de viță/liană de aur -->
-        <path class="vine-path" d="M10,20 C60,20 90,60 90,110 C90,140 120,160 160,160" stroke="#B87333" stroke-width="2.5" stroke-linecap="round"/>
-        <path class="vine-path" d="M90,110 C60,120 30,100 10,130" stroke="#D4C8BA" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="vine-path" d="M90,60 C120,50 140,30 160,10" stroke="#B87333" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Cele 4 colțuri cu imaginea ta reală -->
+    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose tl" alt="Decor floral">
+    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose tr" alt="Decor floral">
+    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose bl" alt="Decor floral">
+    <img src="pngtree-elegant-red-rose-vine-corner-design-perfect-for-wedding-invitations-png-image_16457055.png" class="corner-rose br" alt="Decor floral">
 
-        <!-- Frunzele și lumânarea -->
-        <g class="fade-in-delayed">
-            <!-- Frunze subtile -->
-            <path d="M60,45 C70,35 85,40 80,55 C70,65 55,60 60,45 Z" fill="#D4C8BA" opacity="0.7"/>
-            <path d="M120,130 C130,120 145,125 140,140 C130,150 115,145 120,130 Z" fill="#A66A43" opacity="0.5"/>
-            <path d="M130,30 C140,20 155,25 150,40 C140,50 125,45 130,30 Z" fill="#E8DED1" opacity="0.9"/>
+    <!-- Conținutul -->
+    <div class="content-wrapper">
+        <div style="margin-bottom: 24px;">
+            <!-- Flacăra Monicăi este la locul ei -->
+            <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto; margin: 0 auto 12px; display: block;">
+            <h1 style="font-size: 32px; margin-bottom: 8px;">Înscriere <em>înregistrată!</em></h1>
+        </div>
 
-            <!-- Lumânărica artizanală -->
-            <!-- Corpul -->
-            <rect x="70" y="75" width="18" height="30" rx="3" fill="#F8A33A"/>
-            <path d="M70,100 Q79,105 88,100 L88,105 Q79,108 70,105 Z" fill="#B87333" opacity="0.3"/> <!-- Umbrire bază -->
-            <!-- Fitil -->
-            <line x1="79" y1="75" x2="79" y2="70" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round"/>
-            <!-- Flacăra -->
-            <path d="M79,55 C74,62 74,69 79,70 C84,69 84,62 79,55 Z" fill="#E95267"/>
-        </g>
-    </svg>
-
-    <!-- Liana Dreapta-Jos -->
-    <svg class="decoration dec-br" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="vine-path" d="M10,20 C60,20 90,60 90,110 C90,140 120,160 160,160" stroke="#B87333" stroke-width="2.5" stroke-linecap="round"/>
-        <path class="vine-path" d="M90,110 C60,120 30,100 10,130" stroke="#D4C8BA" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="vine-path" d="M90,60 C120,50 140,30 160,10" stroke="#B87333" stroke-width="1.5" stroke-linecap="round"/>
-
-        <g class="fade-in-delayed">
-            <path d="M60,45 C70,35 85,40 80,55 C70,65 55,60 60,45 Z" fill="#D4C8BA" opacity="0.7"/>
-            <path d="M120,130 C130,120 145,125 140,140 C130,150 115,145 120,130 Z" fill="#A66A43" opacity="0.5"/>
-            <path d="M130,30 C140,20 155,25 150,40 C140,50 125,45 130,30 Z" fill="#E8DED1" opacity="0.9"/>
-
-            <rect x="70" y="75" width="18" height="30" rx="3" fill="#F8A33A"/>
-            <path d="M70,100 Q79,105 88,100 L88,105 Q79,108 70,105 Z" fill="#B87333" opacity="0.3"/>
-            <line x1="79" y1="75" x2="79" y2="70" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M79,55 C74,62 74,69 79,70 C84,69 84,62 79,55 Z" fill="#E95267"/>
-        </g>
-    </svg>
-
-    <div style="margin-bottom: 24px; position: relative; z-index: 10;">
-        <img src="flacara-monica.svg" alt="Flacără" style="width: 54px; height: auto; margin: 0 auto 16px; display: block;">
-        <h1 style="font-size: 34px; margin-bottom: 12px; letter-spacing: -0.5px;">Înscriere <em>înregistrată!</em></h1>
-    </div>
-
-    <p style="font-size: 16px; margin-bottom: 32px; line-height: 1.7; position: relative; z-index: 10;">
-        Îți mulțumim pentru interes! Datele tale au fost trimise cu succes către echipa noastră.
-    </p>
-
-    <div style="background: var(--color-bg); padding: 20px; border-radius: 4px; margin-bottom: 24px; position: relative; z-index: 10; border-left: 3px solid var(--color-accent);">
-        <p style="font-size: 15px; opacity: 0.9;">
-            Monica te va contacta în cel mai scurt timp pe <strong>WhatsApp</strong> pentru a stabili detaliile de plată și livrare a cursului.
+        <p style="font-size: 15px; margin-bottom: 24px; line-height: 1.7;">
+            Îți mulțumim pentru interes! Datele tale au fost trimise cu succes către echipa noastră.
         </p>
-    </div>
 
-    <a href="index.html" class="btn-home">Întoarce-te pe site</a>
+        <div style="background: var(--color-bg); padding: 16px; border-radius: 4px; margin-bottom: 24px;">
+            <p style="font-size: 14px; opacity: 0.9;">
+                Monica te va contacta în cel mai scurt timp pe <strong>WhatsApp</strong> pentru a stabili detaliile de plată și livrare a cursului.
+            </p>
+        </div>
+
+        <a href="index.html" class="btn-home">Înapoi la pagina principală</a>
+    </div>
 </div>
 
 <script>
-    // Efect de confetti aurii care acoperă ecranul timp de 2 secunde
+    // Confetti pe roșu și auriu, asortate cu trandafirii
     window.addEventListener('DOMContentLoaded', () => {
         const duration = 2 * 1000;
         const end = Date.now() + duration;
 
-        // Paletă axată pe auriu, bronz și teracotă, asortată cu brandul
-        const colors = ['#B87333', '#F8A33A', '#E95267', '#D4C8BA', '#4A6352'];
+        const colors = ['#A30000', '#D4AF37', '#B87333', '#4A6352'];
 
         (function frame() {
             confetti({
@@ -194,16 +155,14 @@
                 angle: 60,
                 spread: 55,
                 origin: { x: 0 },
-                colors: colors,
-                zIndex: 200
+                colors: colors
             });
             confetti({
                 particleCount: 7,
                 angle: 120,
                 spread: 55,
                 origin: { x: 1 },
-                colors: colors,
-                zIndex: 200
+                colors: colors
             });
 
             if (Date.now() < end) {
