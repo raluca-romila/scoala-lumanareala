@@ -107,5 +107,21 @@
     <a href="index.html" class="btn-home">Întoarce-te pe site</a>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const burnVideo = document.querySelector('.burn-overlay');
+
+        // Verificăm dacă videoclipul reușește să pornească
+        let playPromise = burnVideo.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                // Dacă telefonul blochează videoclipul (ex. Low Power Mode), îl ascundem instant
+                console.log("Autoplay blocat de telefon. Afișăm formularul direct.");
+                burnVideo.style.display = 'none';
+            });
+        }
+    });
+</script>
 </body>
 </html>
