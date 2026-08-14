@@ -9,12 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-bg: #F8F5F0;
-            --color-bg-white: #FFFFFF;
             --color-accent: #B87333;
             --color-eucalipt: #4A6352;
-            --color-border: #D4C8BA;
-
+            --color-dark-text: #2A382F;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-sans: 'Lato', -apple-system, sans-serif;
         }
@@ -23,31 +20,34 @@
 
         body {
             font-family: var(--font-sans);
-            color: var(--color-eucalipt);
-            background: #111;
+            color: var(--color-dark-text);
+            background: #1a1614;
             line-height: 1.65;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             padding: 40px 20px;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden;
         }
 
         h1, h2 { font-family: var(--font-serif); font-weight: 400; color: var(--color-eucalipt); }
-        p, a { color: var(--color-eucalipt); }
         em { font-style: italic; color: var(--color-accent); font-weight: 500; }
 
+        /* --- CARDUL FINAL (Mult mai întunecat și integrat) --- */
         .thank-card {
             max-width: 600px;
             width: 100%;
             margin: auto;
             padding: 80px 40px 60px;
-            background: var(--color-bg-white);
+            /* Culoare tip pergament ars/afumat */
+            background: rgba(168, 159, 145, 0.85);
             border-radius: 4px;
             text-align: center;
             position: relative;
             z-index: 10;
+            /* Umbră uriașă și extrem de închisă pentru a estompa marginile complet */
+            box-shadow: 0 0 120px 40px rgba(10, 8, 7, 0.95);
+            backdrop-filter: blur(5px);
         }
 
         .btn-home {
@@ -55,7 +55,7 @@
             margin-top: 32px;
             padding: 14px 36px;
             background: var(--color-eucalipt);
-            color: var(--color-bg-white);
+            color: #FFFFFF;
             border-radius: 4px;
             font-size: 13px;
             letter-spacing: 2px;
@@ -86,7 +86,6 @@
 
 <video class="burn-overlay" autoplay muted playsinline>
     <source src="burning-page.mp4" type="video/mp4">
-    Your browser does not support the video tag.
 </video>
 
 <div class="thank-card">
@@ -95,12 +94,12 @@
         <h1 style="font-size: 32px; margin-bottom: 8px;">Înscriere <em>înregistrată!</em></h1>
     </div>
 
-    <p style="font-size: 15px; margin-bottom: 24px; line-height: 1.7;">
+    <p style="font-size: 15px; margin-bottom: 24px; line-height: 1.7; color: var(--color-dark-text);">
         Îți mulțumim pentru interes! Datele tale au fost trimise cu succes către echipa noastră.
     </p>
 
-    <div style="background: var(--color-bg); padding: 16px; border-radius: 4px; margin-bottom: 24px;">
-        <p style="font-size: 14px; opacity: 0.9;">
+    <div style="background: rgba(255, 255, 255, 0.15); padding: 16px; border-radius: 4px; margin-bottom: 24px; border-left: 3px solid var(--color-accent);">
+        <p style="font-size: 14px; opacity: 0.95; color: var(--color-dark-text);">
             Monica te va contacta în cel mai scurt timp pe <strong>WhatsApp</strong> pentru a stabili detaliile de plată și livrare a cursului.
         </p>
     </div>
