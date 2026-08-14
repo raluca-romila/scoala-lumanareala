@@ -135,62 +135,87 @@
 </head>
 <body>
 
-<div class="form-container">
-    <!-- Logo Header -->
+<div class="form-container" style="background: transparent; box-shadow: none; border: 1px solid rgba(212, 200, 186, 0.3); backdrop-filter: blur(10px);">
+
     <a href="index.html" class="header-logo">
-        <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto; flex-shrink: 0;">
+        <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto;">
         <div style="width: 1px; height: 40px; background-color: var(--color-accent); opacity: 0.5;"></div>
         <div style="line-height: 1.1; text-align: left;">
-            <div style="font-size: 14px; letter-spacing: 2px;">ȘCOALA <span style="font-family: var(--font-serif); font-style: italic; text-transform: none; font-size: 16px; color: var(--color-accent);">&ndash; de &ndash;</span></div>
-            <div style="font-size: 20px; font-weight: 700; letter-spacing: 1px;">LUMÂNĂREALĂ</div>
+            <div style="font-size: 14px; letter-spacing: 2px; color: var(--color-eucalipt);">ȘCOALA &ndash; de &ndash;</div>
+            <div style="font-size: 20px; font-weight: 700; letter-spacing: 1px; color: var(--color-eucalipt);">LUMÂNĂREALĂ</div>
         </div>
     </a>
 
-    <div style="text-align: center; margin-bottom: 32px;">
-        <h2 style="font-size: 28px; margin-bottom: 12px;">Finalizare <em>Înscriere</em></h2>
-        <p style="font-size: 14px; opacity: 0.8;">Completează datele de mai jos, iar Monica te va contacta pe WhatsApp cu detaliile de plată și accesul la curs.</p>
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 32px; margin-bottom: 12px; color: var(--color-eucalipt);">Înscriere <em>Atelier</em></h2>
+        <p style="font-size: 14px; color: var(--color-eucalipt-light);">Completează detaliile pentru a rezerva locul tău.</p>
     </div>
 
-    <!-- Formularul Web3Forms -->
     <form action="https://api.web3forms.com/submit" method="POST">
-        <!-- INSTRUCTIUNE: Aici pui Access Key-ul tău -->
         <input type="hidden" name="access_key" value="a7c91325-219c-4350-ab0d-3dce71bb5e3b">
+        <input type="hidden" name="redirect" value="https://scoala-de-lumanareala.vercel.app/thank-you.html">
 
-        <!-- Redirecționarea către pagina de Thank You -->
-        <input type="hidden" name="redirect" value="https://scoala-lumanareala.vercel.app/thank_you.html">
-
-        <!-- Subiectul emailului pe care îl veți primi -->
-        <input type="hidden" name="subject" value="Înscriere nouă - Școala de Lumânăreală!">
-
-        <div class="form-group">
-            <label for="nume">Nume și Prenume</label>
-            <input type="text" id="nume" name="Nume" class="form-control" placeholder="ex: Maria Popescu" required>
+        <!-- Input-urile stilizate minimalist -->
+        <div class="form-group" style="position: relative;">
+            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Nume și Prenume</label>
+            <input type="text" name="Nume" class="form-control" placeholder="Maria Popescu" required
+                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
         </div>
 
-        <div class="form-group">
-            <label for="telefon">Număr de WhatsApp</label>
-            <input type="tel" id="telefon" name="Telefon" class="form-control" placeholder="ex: 07XX XXX XXX" required>
+        <div class="form-group" style="position: relative;">
+            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Număr de WhatsApp</label>
+            <input type="tel" name="Telefon" class="form-control" placeholder="07xx xxx xxx" required
+                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
         </div>
 
-        <div class="form-group">
-            <label for="email">Adresă de Email</label>
-            <input type="email" id="email" name="Email" class="form-control" placeholder="ex: maria@email.com" required>
+        <div class="form-group" style="position: relative;">
+            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Adresă de Email</label>
+            <input type="email" name="Email" class="form-control" placeholder="maria@exemplu.com" required
+                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
         </div>
 
-        <div class="form-group">
-            <label for="pachet">Ce pachet dorești?</label>
-            <select id="pachet" name="Pachet_Ales" class="form-control" required>
-                <option value="" disabled selected>Alege un pachet...</option>
-                <option value="START">Pachet START (297 lei)</option>
-                <option value="START PLUS">Pachet START PLUS (397 lei)</option>
-            </select>
+        <div class="form-group" style="position: relative;">
+            <!-- Selector pachete stilizat modern (Carduri interactive) -->
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label style="color: var(--color-eucalipt-light); font-size: 11px; display: block; margin-bottom: 12px;">Alege pachetul dorit</label>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <!-- Opțiunea 1 -->
+                    <label style="border: 1px solid var(--color-border); padding: 14px 12px; border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; transition: all 0.2s ease; background: transparent;" class="package-option">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase;">START</span>
+                            <input type="radio" name="Pachet_Ales" value="START" required style="accent-color: var(--color-eucalipt);">
+                        </div>
+                        <span style="font-family: var(--font-serif); font-size: 18px; color: var(--color-accent);">297 lei</span>
+                    </label>
+
+                    <!-- Opțiunea 2 -->
+                    <label style="border: 1px solid var(--color-border); padding: 14px 12px; border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; transition: all 0.2s ease; background: transparent;" class="package-option">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase;">START PLUS</span>
+                            <input type="radio" name="Pachet_Ales" value="START PLUS" style="accent-color: var(--color-eucalipt);">
+                        </div>
+                        <span style="font-family: var(--font-serif); font-size: 18px; color: var(--color-accent);">397 lei</span>
+                    </label>
+                </div>
+            </div>
+
+            <script>
+                // Un mic efect vizual când selectezi un pachet (schimbă bordura în verdele nostru)
+                document.querySelectorAll('.package-option').forEach(label => {
+                    label.addEventListener('click', function() {
+                        document.querySelectorAll('.package-option').forEach(l => l.style.borderColor = 'var(--color-border)');
+                        this.style.borderColor = 'var(--color-eucalipt)';
+                        this.style.background = 'rgba(74, 99, 82, 0.04)';
+                    });
+                });
+            </script>
         </div>
 
-        <button type="submit" class="btn-submit">Trimite datele</button>
+        <button type="submit" class="btn-submit" style="margin-top: 30px; background: var(--color-eucalipt);">Trimite Înscrierea</button>
     </form>
 
-    <a href="index.html" class="back-link">← Întoarce-te la pagina principală</a>
-    <input type="hidden" name="redirect" value="https://scoala-de-lumanareala.vercel.app/thank-you.html">
+    <a href="index.html" class="back-link" style="color: var(--color-eucalipt-light);">← Înapoi la site</a>
 </div>
 
 </body>
