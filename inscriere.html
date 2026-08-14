@@ -34,6 +34,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            justify-content: center;
         }
 
         h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; color: var(--color-eucalipt); }
@@ -41,12 +42,13 @@
         em { font-style: italic; color: var(--color-accent); font-weight: 500; }
 
         .form-container {
-            max-width: 500px;
-            margin: 60px auto;
-            padding: 40px 32px;
-            background: var(--color-bg-white);
+            max-width: 520px;
+            margin: 40px auto;
+            padding: 48px 40px;
+            background: transparent;
             border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(74, 99, 82, 0.08);
+            border: 1px solid rgba(212, 200, 186, 0.3);
+            backdrop-filter: blur(10px);
             width: 90%;
         }
 
@@ -59,44 +61,74 @@
             text-decoration: none;
         }
 
+        .form-row-dual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
         .form-group {
             margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
-            letter-spacing: 1px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 8px;
+            color: var(--color-eucalipt-light);
         }
 
         .form-control {
             width: 100%;
-            padding: 14px 16px;
             font-family: var(--font-sans);
             font-size: 15px;
             color: var(--color-eucalipt);
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: 4px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-border);
+            border-radius: 0;
+            padding: 8px 0;
             outline: none;
             transition: border-color 0.2s ease;
         }
 
         .form-control:focus {
-            border-color: var(--color-eucalipt);
-            background: var(--color-bg-white);
+            border-bottom-color: var(--color-eucalipt);
         }
 
-        select.form-control {
-            appearance: none;
+        /* Carduri pachete interactive */
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .package-option {
+            border: 1px solid var(--color-border);
+            padding: 14px 12px;
+            border-radius: 4px;
             cursor: pointer;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234A6352%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px top 50%;
-            background-size: 10px auto;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: transparent;
+            display: block;
+        }
+
+        .package-option input[type="radio"] {
+            display: none;
+        }
+
+        .package-option:has(input:checked) {
+            border-color: var(--color-eucalipt);
+            background: rgba(74, 99, 82, 0.04);
+        }
+
+        .package-option:has(input:checked) .pkg-price {
+            color: var(--color-accent);
         }
 
         .btn-submit {
@@ -107,7 +139,7 @@
             border: none;
             border-radius: 4px;
             font-family: var(--font-sans);
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 700;
@@ -126,19 +158,24 @@
             margin-top: 24px;
             font-size: 13px;
             text-decoration: none;
+            color: var(--color-eucalipt-light);
             opacity: 0.8;
             transition: opacity 0.2s;
         }
         .back-link:hover { opacity: 1; text-decoration: underline; }
 
+        @media (max-width: 500px) {
+            .form-row-dual { grid-template-columns: 1fr; gap: 0; }
+            .form-container { padding: 32px 20px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="form-container" style="background: transparent; box-shadow: none; border: 1px solid rgba(212, 200, 186, 0.3); backdrop-filter: blur(10px);">
-
+<div class="form-container">
+    <!-- Logo Header -->
     <a href="index.html" class="header-logo">
-        <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto;">
+        <img src="flacara-monica.svg" alt="Flacără" style="width: 48px; height: auto; flex-shrink: 0;">
         <div style="width: 1px; height: 40px; background-color: var(--color-accent); opacity: 0.5;"></div>
         <div style="line-height: 1.1; text-align: left;">
             <div style="font-size: 14px; letter-spacing: 2px; color: var(--color-eucalipt);">ȘCOALA &ndash; de &ndash;</div>
@@ -146,76 +183,63 @@
         </div>
     </a>
 
-    <div style="text-align: center; margin-bottom: 40px;">
-        <h2 style="font-size: 32px; margin-bottom: 12px; color: var(--color-eucalipt);">Înscriere <em>Atelier</em></h2>
+    <div style="text-align: center; margin-bottom: 36px;">
+        <h2 style="font-size: 30px; margin-bottom: 8px;">Înscriere <em>Atelier</em></h2>
         <p style="font-size: 14px; color: var(--color-eucalipt-light);">Completează detaliile pentru a rezerva locul tău.</p>
     </div>
 
+    <!-- Formularul Web3Forms -->
     <form action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="a7c91325-219c-4350-ab0d-3dce71bb5e3b">
         <input type="hidden" name="redirect" value="https://scoala-de-lumanareala.vercel.app/thank-you.html">
+        <input type="hidden" name="subject" value="Înscriere nouă - Școala de Lumânăreală!">
 
-        <!-- Input-urile stilizate minimalist -->
-        <div class="form-group" style="position: relative;">
-            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Nume și Prenume</label>
-            <input type="text" name="Nume" class="form-control" placeholder="Maria Popescu" required
-                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
-        </div>
-
-        <div class="form-group" style="position: relative;">
-            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Număr de WhatsApp</label>
-            <input type="tel" name="Telefon" class="form-control" placeholder="07xx xxx xxx" required
-                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
-        </div>
-
-        <div class="form-group" style="position: relative;">
-            <label style="color: var(--color-eucalipt-light); font-size: 11px;">Adresă de Email</label>
-            <input type="email" name="Email" class="form-control" placeholder="maria@exemplu.com" required
-                   style="background: transparent; border-radius: 0; border: none; border-bottom: 1px solid var(--color-border); padding: 10px 0;">
-        </div>
-
-        <div class="form-group" style="position: relative;">
-            <!-- Selector pachete stilizat modern (Carduri interactive) -->
-            <div class="form-group" style="margin-bottom: 30px;">
-                <label style="color: var(--color-eucalipt-light); font-size: 11px; display: block; margin-bottom: 12px;">Alege pachetul dorit</label>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <!-- Opțiunea 1 -->
-                    <label style="border: 1px solid var(--color-border); padding: 14px 12px; border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; transition: all 0.2s ease; background: transparent;" class="package-option">
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase;">START</span>
-                            <input type="radio" name="Pachet_Ales" value="START" required style="accent-color: var(--color-eucalipt);">
-                        </div>
-                        <span style="font-family: var(--font-serif); font-size: 18px; color: var(--color-accent);">297 lei</span>
-                    </label>
-
-                    <!-- Opțiunea 2 -->
-                    <label style="border: 1px solid var(--color-border); padding: 14px 12px; border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; transition: all 0.2s ease; background: transparent;" class="package-option">
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase;">START PLUS</span>
-                            <input type="radio" name="Pachet_Ales" value="START PLUS" style="accent-color: var(--color-eucalipt);">
-                        </div>
-                        <span style="font-family: var(--font-serif); font-size: 18px; color: var(--color-accent);">397 lei</span>
-                    </label>
-                </div>
+        <!-- Nume & Prenume (Dual Row) -->
+        <div class="form-row-dual">
+            <div class="form-group">
+                <label>Prenume</label>
+                <input type="text" name="Prenume" class="form-control" required>
             </div>
-
-            <script>
-                // Un mic efect vizual când selectezi un pachet (schimbă bordura în verdele nostru)
-                document.querySelectorAll('.package-option').forEach(label => {
-                    label.addEventListener('click', function() {
-                        document.querySelectorAll('.package-option').forEach(l => l.style.borderColor = 'var(--color-border)');
-                        this.style.borderColor = 'var(--color-eucalipt)';
-                        this.style.background = 'rgba(74, 99, 82, 0.04)';
-                    });
-                });
-            </script>
+            <div class="form-group">
+                <label>Nume</label>
+                <input type="text" name="Nume" class="form-control" required>
+            </div>
         </div>
 
-        <button type="submit" class="btn-submit" style="margin-top: 30px; background: var(--color-eucalipt);">Trimite Înscrierea</button>
+        <!-- Număr WhatsApp -->
+        <div class="form-group">
+            <label>Număr WhatsApp</label>
+            <input type="tel" name="Telefon" class="form-control" required>
+        </div>
+
+        <!-- Adresă Email -->
+        <div class="form-group">
+            <label>Adresă Email</label>
+            <input type="email" name="Email" class="form-control" required>
+        </div>
+
+        <!-- Pachet Ales (Carduri interactive) -->
+        <div class="form-group" style="margin-top: 28px;">
+            <label>Alege pachetul dorit</label>
+            <div class="package-grid">
+                <label class="package-option">
+                    <input type="radio" name="Pachet_Ales" value="START" required>
+                    <div style="font-size: 11px; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px;">START</div>
+                    <div class="pkg-price" style="font-family: var(--font-serif); font-size: 18px;">297 lei</div>
+                </label>
+
+                <label class="package-option">
+                    <input type="radio" name="Pachet_Ales" value="START PLUS">
+                    <div style="font-size: 11px; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px;">START PLUS</div>
+                    <div class="pkg-price" style="font-family: var(--font-serif); font-size: 18px;">397 lei</div>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Trimite înscrierea</button>
     </form>
 
-    <a href="index.html" class="back-link" style="color: var(--color-eucalipt-light);">← Înapoi la site</a>
+    <a href="index.html" class="back-link">← Înapoi la pagina principală</a>
 </div>
 
 </body>
