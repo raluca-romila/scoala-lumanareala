@@ -909,6 +909,91 @@
         <a href="inscriere.html" class="btn">Vreau să încep</a>
     </div>
 </section>
+<!-- === BUTON STICKY & POP-UP (Pentru conversii) === -->
+<style>
+    /* Buton plutitor în dreapta jos */
+    .sticky-enroll-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--color-accent, #B87333);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(184, 115, 51, 0.4);
+        z-index: 999;
+        transition: transform 0.3s ease;
+    }
+    .sticky-enroll-btn:hover { transform: translateY(-3px); }
+
+    /* Modal / Pop-up elegant */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 1000;
+        opacity: 0; visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .modal-content {
+        background: #F8F5F0;
+        padding: 40px;
+        border-radius: 8px;
+        max-width: 450px;
+        text-align: center;
+        position: relative;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+        border: 2px solid var(--color-border, #D4C8BA);
+    }
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+
+    .modal-close {
+        position: absolute; top: 15px; right: 20px;
+        font-size: 24px; cursor: pointer; color: #4A6352;
+        border: none; background: none;
+    }
+</style>
+
+<!-- Elementele HTML -->
+<a href="inscriere.html" class="sticky-enroll-btn">Înscrie-te Acum</a>
+
+<div class="modal-overlay" id="promoModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <img src="flacara-monica.svg" alt="Flacără" style="width: 40px; margin: 0 auto 15px; display: block;">
+        <h2 style="font-family: var(--font-serif); color: #4A6352; font-size: 28px; margin-bottom: 10px;">Nu rata ocazia!</h2>
+        <p style="font-family: var(--font-sans); color: #4A6352; font-size: 15px; margin-bottom: 25px;">
+            Locurile la atelierul nostru sunt limitate. Rezervă-ți locul acum și începe-ți călătoria creativă alături de Monica!
+        </p>
+        <a href="inscriere.html" class="btn btn-filled" style="display: block; width: 100%; text-align: center; box-sizing: border-box;" onclick="closeModal()">Rezervă un loc</a>    </div>
+</div>
+
+<script>
+    // Deschide pop-up-ul automat după 10 secunde pe site
+    setTimeout(() => {
+        // Verificăm dacă utilizatorul a văzut deja modalul în această sesiune (ca să nu îl stresăm)
+        if (!sessionStorage.getItem('modalVazut')) {
+            document.getElementById('promoModal').classList.add('active');
+            sessionStorage.setItem('modalVazut', 'true');
+        }
+    }, 10000); // 10000ms = 10 secunde
+
+    function closeModal() {
+        document.getElementById('promoModal').classList.remove('active');
+    }
+</script>
+<!-- ========================================================= -->
 
 </body>
 </html>
